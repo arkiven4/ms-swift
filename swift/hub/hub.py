@@ -82,6 +82,7 @@ class HubOperation:
                      subset_name: str,
                      split: str,
                      streaming: bool = False,
+                     trust_remote_code: bool = False,
                      revision: Optional[str] = None):
         """Load a dataset from the repo
 
@@ -416,7 +417,8 @@ class HFHub(HubOperation):
                      subset_name: str,
                      split: str,
                      streaming: bool = False,
-                     revision: Optional[str] = None,
+                     revision: Optional[str] = None, 
+                     trust_remote_code: Optional[bool] = False,
                      download_mode: Literal['force_redownload', 'reuse_dataset_if_exists'] = 'reuse_dataset_if_exists',
                      num_proc: Optional[int] = None,
                      **kwargs):
@@ -430,7 +432,8 @@ class HFHub(HubOperation):
             streaming=streaming,
             revision=revision,
             download_mode=download_mode,
-            num_proc=num_proc)
+            num_proc=num_proc,
+            trust_remote_code=trust_remote_code)
 
     @classmethod
     def download_model(cls,

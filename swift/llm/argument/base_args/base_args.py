@@ -86,8 +86,9 @@ class BaseArguments(CompatArguments, GenerationArguments, QuantizeArguments, Dat
     lazy_tokenize: Optional[bool] = None
     cached_dataset: List[str] = field(default_factory=list)
     custom_register_path: List[str] = field(default_factory=list)  # .py
-    # hub
+    # hub 
     use_hf: bool = False
+    trust_remote_code: bool = False
     # None: use env var `MODELSCOPE_API_TOKEN`
     hub_token: Optional[str] = field(
         default=None, metadata={'help': 'SDK token can be found in https://modelscope.cn/my/myaccesstoken'})

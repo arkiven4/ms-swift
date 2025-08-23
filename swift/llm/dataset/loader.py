@@ -234,6 +234,7 @@ class DatasetLoader:
         download_mode: Literal['force_redownload', 'reuse_dataset_if_exists'] = 'reuse_dataset_if_exists',
         columns: Optional[Dict[str, str]] = None,
         remove_unused_columns: bool = True,
+        trust_remote_code: bool = False,
     ) -> HfDataset:
         datasets = []
         if os.path.isdir(dataset_id):
@@ -264,14 +265,15 @@ class DatasetLoader:
                 while True:
                     try:
                         dataset = hub.load_dataset(
-                            dataset_id,
+                            dataset_id + "/omnigrpo_dataset.py",
                             subset.subset,
                             split,
                             streaming=streaming,
                             revision=revision,
                             download_mode=download_mode,
                             hub_token=hub_token,
-                            num_proc=num_proc)
+                            num_proc=num_proc,
+                            trust_remote_code=trust_remote_code)
                     except Exception as e:
                         if i == retry:
                             raise
@@ -388,6 +390,7 @@ class DatasetLoader:
         download_mode: Literal['force_redownload', 'reuse_dataset_if_exists'] = 'reuse_dataset_if_exists',
         columns: Optional[Dict[str, str]] = None,
         remove_unused_columns: bool = True,
+        trust_remote_code: bool = False,
     ) -> HfDataset:
         if dataset_syntax.dataset_type == 'path':
             dataset = DatasetLoader._load_dataset_path(
@@ -416,6 +419,7 @@ class DatasetLoader:
                     revision=revision,
                     streaming=streaming,
                     download_mode=download_mode,
+                    trust_remote_code=trust_remote_code,
                     columns=columns,
                     remove_unused_columns=remove_unused_columns,
                 )
@@ -462,13 +466,14 @@ def load_dataset(
     streaming: bool = False,
     interleave_prob: Optional[List[float]] = None,
     stopping_strategy: Literal['first_exhausted', 'all_exhausted'] = 'first_exhausted',
-    shuffle_buffer_size: int = 1000,
+    shuffle_buffer_size: int = 1000, 
     use_hf: Optional[bool] = None,
     hub_token: Optional[str] = None,
     strict: bool = False,
     download_mode: Literal['force_redownload', 'reuse_dataset_if_exists'] = 'reuse_dataset_if_exists',
     columns: Optional[Dict[str, str]] = None,  # columns_mapping
     remove_unused_columns: bool = True,
+    trust_remote_code: bool = False,
     # self-cognition
     model_name: Optional[Union[Tuple[str, str], List[str]]] = None,  # zh, en
     model_author: Optional[Union[Tuple[str, str], List[str]]] = None,
@@ -512,6 +517,7 @@ def load_dataset(
         'streaming': streaming,
         'hub_token': hub_token,
         'remove_unused_columns': remove_unused_columns,
+        'trust_remote_code': trust_remote_code,
     }
     use_hf_default = use_hf
     if use_hf_default is None:
