@@ -235,6 +235,7 @@ class DatasetLoader:
         columns: Optional[Dict[str, str]] = None,
         remove_unused_columns: bool = True,
         trust_remote_code: bool = False,
+        datasets_script: Optional[str] = "", 
     ) -> HfDataset:
         datasets = []
         if os.path.isdir(dataset_id):
@@ -263,9 +264,9 @@ class DatasetLoader:
             i = 1
             with load_context():
                 while True:
-                    try:
+                    try: 
                         dataset = hub.load_dataset(
-                            dataset_id + "/omnigrpo_dataset.py",
+                            dataset_id + "/" + datasets_script,
                             subset.subset,
                             split,
                             streaming=streaming,
@@ -389,8 +390,9 @@ class DatasetLoader:
         strict: bool = False,
         download_mode: Literal['force_redownload', 'reuse_dataset_if_exists'] = 'reuse_dataset_if_exists',
         columns: Optional[Dict[str, str]] = None,
-        remove_unused_columns: bool = True,
+        remove_unused_columns: bool = True, 
         trust_remote_code: bool = False,
+        datasets_script: Optional[str] = ""
     ) -> HfDataset:
         if dataset_syntax.dataset_type == 'path':
             dataset = DatasetLoader._load_dataset_path(
@@ -419,6 +421,7 @@ class DatasetLoader:
                     revision=revision,
                     streaming=streaming,
                     download_mode=download_mode,
+                    datasets_script=datasets_script,
                     trust_remote_code=trust_remote_code,
                     columns=columns,
                     remove_unused_columns=remove_unused_columns,
@@ -474,6 +477,7 @@ def load_dataset(
     columns: Optional[Dict[str, str]] = None,  # columns_mapping
     remove_unused_columns: bool = True,
     trust_remote_code: bool = False,
+    datasets_script: Optional[str] = "",
     # self-cognition
     model_name: Optional[Union[Tuple[str, str], List[str]]] = None,  # zh, en
     model_author: Optional[Union[Tuple[str, str], List[str]]] = None,
@@ -515,9 +519,10 @@ def load_dataset(
         'download_mode': download_mode,
         'columns': columns,
         'streaming': streaming,
-        'hub_token': hub_token,
+        'hub_token': hub_token, 
         'remove_unused_columns': remove_unused_columns,
         'trust_remote_code': trust_remote_code,
+        'datasets_script': datasets_script,
     }
     use_hf_default = use_hf
     if use_hf_default is None:

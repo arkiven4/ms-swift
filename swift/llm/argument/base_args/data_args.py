@@ -44,6 +44,7 @@ class DataArguments:
     shuffle_buffer_size: int = 1000
 
     trust_remote_code: bool = False
+    datasets_script: Optional[str] = ""
     download_mode: Literal['force_redownload', 'reuse_dataset_if_exists'] = 'reuse_dataset_if_exists'
     columns: Optional[Union[dict, str]] = None
     strict: bool = False
@@ -83,6 +84,7 @@ class DataArguments:
             'shuffle_buffer_size': self.shuffle_buffer_size,
             'use_hf': self.use_hf,
             'trust_remote_code': self.trust_remote_code,
+            'datasets_script': self.datasets_script,
             'hub_token': self.hub_token,
             'download_mode': self.download_mode,
             'columns': self.columns,

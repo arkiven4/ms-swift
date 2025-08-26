@@ -89,6 +89,7 @@ class BaseArguments(CompatArguments, GenerationArguments, QuantizeArguments, Dat
     # hub 
     use_hf: bool = False
     trust_remote_code: bool = False
+    datasets_script: Optional[str] = ""
     # None: use env var `MODELSCOPE_API_TOKEN`
     hub_token: Optional[str] = field(
         default=None, metadata={'help': 'SDK token can be found in https://modelscope.cn/my/myaccesstoken'})
