@@ -1,6 +1,7 @@
 PYTHONPATH=$PWD:$PYTHONPATH \
 CUDA_HOME=/home/is/dwipraseetyo-a/nvidia/cuda-12.8/ \
 HF_HOME=/home/is/dwipraseetyo-a/NAS_HAI/.cache \
+MODELSCOPE_CACHE=/home/is/dwipraseetyo-a/NAS_HAI/.cache \
 RANK=0 \
 WORLD_SIZE=1 \
 GPUS_PER_NODE=1 \

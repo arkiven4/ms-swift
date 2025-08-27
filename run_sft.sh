@@ -22,7 +22,7 @@ swift sft \
     --freeze_aligner true \
     --system /home/is/dwipraseetyo-a/NAS_HAI/Project/Qwen2.5-Omni/datas/sft_system.txt \
     --dataset /home/is/dwipraseetyo-a/NAS_HAI/Datasets/grpo_3modalities_datasets \
-    --split_dataset_ratio 0.001 \
+    --split_dataset_ratio 0.01 \
     --use_hf true \
     --trust_remote_code true \
     --datasets_script "omnisft_dataset.py" \
@@ -32,8 +32,8 @@ swift sft \
     --gradient_accumulation_steps 4 \
     --attn_impl 'flash_attention_2' \
     --deepspeed 'zero2' \
-    --eval_steps 100 \
-    --save_steps 100 \
+    --eval_steps 500 \
+    --save_steps 500 \
     --save_total_limit 2 \
     --logging_steps 5 \
     --max_length 2048 \

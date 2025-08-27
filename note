@@ -1,2 +1,24 @@
 pip install -e .
 pip install flash-attn --no-build-isolation
+
+MAX_PIXELS=250880 \
+ENABLE_AUDIO_OUTPUT=0 \
+MODELSCOPE_CACHE=/home/is/dwipraseetyo-a/NAS_HAI/.cache \
+HF_HOME=/home/is/dwipraseetyo-a/NAS_HAI/.cache \
+CUDA_VISIBLE_DEVICES=3 \
+swift export \
+    --adapters outputs/250880-bigdata_balancediseasemodal-sft-llmalign-newtoken/v5-20250827-023510/checkpoint-3000 \
+    --merge_lora true
+
+MAX_PIXELS=250880 \
+ENABLE_AUDIO_OUTPUT=0 \
+MODELSCOPE_CACHE=/home/is/dwipraseetyo-a/NAS_HAI/.cache \
+HF_HOME=/home/is/dwipraseetyo-a/NAS_HAI/.cache \
+CUDA_VISIBLE_DEVICES=3 \
+swift export \
+    --model /home/is/dwipraseetyo-a/NAS_HAI/Project/ms-swift/outputs/250880-bigdata_balancediseasemodal-sft-llmalign-newtoken/v5-20250827-023510/checkpoint-3000-merged \
+    --push_to_hub true \
+    --hub_model_id 'arkiven4/Qwen2.5-7B-SFT-NT' \
+    --hub_token '' \
+    --use_hf true \
+    --hub_private_repo true
