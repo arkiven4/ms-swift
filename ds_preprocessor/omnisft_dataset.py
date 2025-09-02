@@ -147,11 +147,11 @@ class OmniGRPODataset(GeneratorBasedBuilder):
                     if ele["type"] == "audio":
                         if "audio" in ele or "audio_url" in ele:
                             ele["audio"] = os.path.join(
-                                data_dir, 'train', row.get("audio_file_name"))
+                                data_dir, row.get("audio_file_name"))
                     if ele["type"] == "image":
                         if "image" in ele:
                             ele["image"] = crop_and_convertJPG(
-                                os.path.join(data_dir, 'train', row.get("image_file_name")))
+                                os.path.join(data_dir, row.get("image_file_name")))
 
                 #del conversation[0]
                 audios, images, _ = process_mm_info(conversation, use_audio_in_video=False)
